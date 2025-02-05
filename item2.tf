@@ -9,9 +9,9 @@ resource "aws_dynamodb_table_item" "item2" {
   #required, => JSON representation of a map of attribute name/value pair, one for each attribute
   item =<<ITEM
   {
-    "UserId": {"S": "002"},
-    "GameTitle": {"S": "BaseBall"},
-    "TopScore":{"N": "8"}
+    "ISBN": {"S": "002"},
+    "Genre": {"S": "BaseBall"},
+    "Year":{"N": "8"}
   }
   ITEM
 }

@@ -1,4 +1,4 @@
-resource "aws_dynamodb_table_item" "item1" {
+resource "aws_dynamodb_table_item" "item2" {
   #insertion of this item into the student table depends entirely on the table being created
   #in other words, the table must be created first
   depends_on = [aws_dynamodb_table.basic-dynamodb-table]
@@ -9,10 +9,9 @@ resource "aws_dynamodb_table_item" "item1" {
   #required, => JSON representation of a map of attribute name/value pair, one for each attribute
   item =<<ITEM
   {
-    "UserId": {"S": "001"},
-    "GameTitle": {"S": "DodgeBall"},
-    "TopScore":{"N": "5"}
+    "ISBN": {"S": "001"},
+    "Genre": {"S": "BasketBall"},
+    "Year":{"N": "9"}
   }
   ITEM
 }
-  
