@@ -16,5 +16,3 @@ sudo apt-get update -y && sudo apt install mysql-client -y
 sudo yum update -y && sudo yum install mysql -y
 
 #connecting to DB
-
-mysql -h terraform-20250202124022902200000004.chheppac9ozc.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
