@@ -15,4 +15,5 @@ sudo apt-get update -y && sudo apt install mysql-client -y
 >Linux
 sudo yum update -y && sudo yum install mysql -y
 
-#connecting to DB
+#How to manage DynamoDB tables in terraform?
+https://spacelift.io/blog/terraform-dynamodb
