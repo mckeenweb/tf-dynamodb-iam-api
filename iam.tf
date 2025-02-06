@@ -23,8 +23,8 @@ resource "aws_iam_policy" "dynamodb_access_policy" {
 }
 
 #IAM role created attach to dynamoDB policy
-resource "aws_iam_role" "ec2_dynamodb_role" {
-  name = "ec2-dynamodb-role"
+resource "aws_iam_role" "ec2_dynamodb_roger_role" {
+  name = "ec2-dynamodb-roger_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -41,20 +41,20 @@ resource "aws_iam_role" "ec2_dynamodb_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach_dynamodb_policy" {
-  role       = aws_iam_role.ec2_dynamodb_role.name
+  role       = aws_iam_role.ec2_dynamodb_roger_role.name
   policy_arn = aws_iam_policy.dynamodb_access_policy.arn
 } 
 
 #attach IAM role to EC2 instance
 resource "aws_iam_instance_profile" "ec2_dynamodb_profile" {
   name = "ec2-dynamodb-profile"
-  role = aws_iam_role.ec2_dynamodb_role.name
+  role = aws_iam_role.ec2_dynamodb_roger_role.name
 }
 
 resource "aws_instance" "web_app" {
   count         = var.settings.web_app.count
   instance_type = var.settings.web_app.instance_type
-  ami           = data.aws_ami.amazon_linux #point to main.tf
+  ami           = data.aws_ami.amazon_linux.id #point to main.tf
   iam_instance_profile = aws_iam_instance_profile.ec2_dynamodb_profile.name
 
   tags = {

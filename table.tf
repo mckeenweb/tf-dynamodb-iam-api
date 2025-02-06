@@ -27,6 +27,8 @@
 resource "aws_dynamodb_table" "roger-bookinventory" {
   name           = var.settings.dynamodb.table_name
   billing_mode   = "PROVISIONED"
+  read_capacity  = 5 #optional, default is 5
+  write_capacity = 5 #optional, default is 5
   hash_key       = var.settings.dynamodb.hash_key
 
   attribute {

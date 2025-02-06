@@ -10,13 +10,3 @@ output "web_public_dns" {
   depends_on = [aws_eip.roger_web_eip]
 }
 
-# output "database_endpoint" {
-#   description = "The endpoint of database"
-#   value = aws_db_instance.roger_db.address
-# }
-
-output "database_port" {
-  description = "The port of database"
-  value = aws_db_instance.roger_db.port
-}
-
