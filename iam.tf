@@ -1,4 +1,4 @@
-#IAM policy that allows access to dynamoDB
+#IAM policy that allows access to dynamoDB # (item 1 & 4)
 resource "aws_iam_policy" "dynamodb_access_policy" {
   name        = "dynamodb-access-policy"
   description = "Policy to allow access to DynamoDB"
@@ -22,7 +22,7 @@ resource "aws_iam_policy" "dynamodb_access_policy" {
   })
 }
 
-#IAM role created attach to dynamoDB policy
+#IAM role created attach to dynamoDB policy 
 resource "aws_iam_role" "ec2_dynamodb_roger_role" {
   name = "ec2-dynamodb-roger_role"
 
@@ -39,13 +39,13 @@ resource "aws_iam_role" "ec2_dynamodb_roger_role" {
     ]
   })
 }
-
+# (item 2)
 resource "aws_iam_role_policy_attachment" "attach_dynamodb_policy" {
   role       = aws_iam_role.ec2_dynamodb_roger_role.name
   policy_arn = aws_iam_policy.dynamodb_access_policy.arn
 } 
 
-#attach IAM role to EC2 instance
+#attach IAM role to EC2 instance # (item 3)
 resource "aws_iam_instance_profile" "ec2_dynamodb_profile" {
   name = "ec2-dynamodb-profile"
   role = aws_iam_role.ec2_dynamodb_roger_role.name
