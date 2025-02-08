@@ -95,12 +95,12 @@ resource "aws_security_group" "roger_web_sg" {
 #RDS security grp
 resource "aws_security_group" "roger_db_sg" {
   name        = "roger_db_sg"
-  description = "security group for DB"
+  description = "security group for EC2 instance accessing DynamoDb"
   vpc_id      = aws_vpc.roger_vpc.id
   ingress {
-    description     = "allow MySQL traffic from only web_sg"
-    from_port       = "3306"
-    to_port         = "3306"
+    description     = "allow traffic to DynamoDB"
+    from_port       = "443"
+    to_port         = "443"
     protocol        = "tcp"
     security_groups = [aws_security_group.roger_web_sg.id]
   }
@@ -157,5 +157,18 @@ resource "aws_eip" "roger_web_eip" {
 
   tags = {
     Name = "roger_web_eip_${count.index}"
+  }
+}
+#VPC Endpoint for DynamoDB (Optional):
+#If your EC2 instances are in a VPC and you want to access DynamoDB privately, create a VPC endpoint for DynamoDB:
+resource "aws_vpc_endpoint" "dynamodb_endpoint" {
+  vpc_id            = aws_vpc.roger_vpc.id
+  service_name      = "com.amazonaws.${var.aws_region}.dynamodb"
+  vpc_endpoint_type = "Gateway"
+
+  route_table_ids = [aws_route_table.roger_private_rt.id, aws_route_table.roger_public_rt.id] # Replace with your route table ID
+
+  tags = {
+    Name = "dynamodb-endpoint"
   }
 }

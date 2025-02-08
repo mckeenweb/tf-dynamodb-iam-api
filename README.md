@@ -12,6 +12,9 @@ ssh-keygen -t rsa -b 4096 -m pem -f roger_kp.pem && chmod 400 roger_kp.pem
 #How to manage DynamoDB tables in terraform?
 https://spacelift.io/blog/terraform-dynamodb
 
-To change your setup from MySQL RDS to DynamoDB, you need to make significant changes because DynamoDB is a NoSQL database service and does not use the aws_db_instance resource. DynamoDB is a fully managed, serverless database, and it does not require provisioning instances, storage, or engine configurations like RDS.
 
-To allow your EC2 instance to interact with DynamoDB, you need to create an IAM role with the necessary permissions and attach it to the EC2 instance.
+DynamoDB Access: DynamoDB is a fully managed NoSQL database service, and it is accessed via HTTPS (port 443) or through AWS SDKs. EC2 instances do not need a specific ingress rule in their security group to access DynamoDB. Instead, they need egress rules to allow outbound traffic to DynamoDB.
+
+Security Group for DynamoDB: DynamoDB does not use security groups. Instead, access to DynamoDB is controlled via IAM policies and VPC endpoints (if accessing DynamoDB from a VPC). You don't need a separate security group for DynamoDB.
+
+EC2 Security Group: The EC2 security group should allow outbound traffic to DynamoDB (port 443) if the EC2 instance needs to communicate with DynamoDB.
