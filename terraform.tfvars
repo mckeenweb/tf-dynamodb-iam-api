@@ -11,3 +11,4 @@ private_subnet_cidr = [ "10.0.101.0/24",
 db_username = "admin"
 db_password = "password"
 my_ip = "155.69.182.252" #121.6.18.91 #click inbound rules my_ip fr security group   
+#terraform automate my_ip while terraforming.
