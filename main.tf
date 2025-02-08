@@ -92,7 +92,7 @@ resource "aws_security_group" "roger_web_sg" {
     Name = "roger_web_sg"
   }
 }
-#RDS security grp
+#EC2-RDS security grp
 resource "aws_security_group" "roger_db_sg" {
   name        = "roger_db_sg"
   description = "security group for EC2 instance accessing DynamoDb"
