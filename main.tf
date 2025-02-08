@@ -61,6 +61,15 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.roger_private_rt.id
   subnet_id      = aws_subnet.roger_private_subnet[count.index].id
 }
+
+#fetching my_ip code
+data "http" "my_public_ip" {
+  url = "https://ifconfig.me/ip" # or use any other service that returns your public IP
+}
+
+locals {
+  my_ip = "${chomp(data.http.my_public_ip.body)}/32"
+}
 #5 EC2 security grp
 resource "aws_security_group" "roger_web_sg" {
   name        = "roger_web_sg"
@@ -72,7 +81,7 @@ resource "aws_security_group" "roger_web_sg" {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    cidr_blocks = ["${var.my_ip}/32"] #using var "my_ip"
+    cidr_blocks = [local.my_ip] ##fetching my_ip code
   }
   ingress {
     description = "allow all traffic thro HTTP"
