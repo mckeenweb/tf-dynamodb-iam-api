@@ -62,14 +62,7 @@ resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.roger_private_subnet[count.index].id
 }
 
-#fetching my_ip code
-data "http" "my_public_ip" {
-  url = "https://ifconfig.me/ip" # or use any other service that returns your public IP
-}
 
-locals {
-  my_ip = "${chomp(data.http.my_public_ip.body)}/32"
-}
 #5 EC2 security grp
 resource "aws_security_group" "roger_web_sg" {
   name        = "roger_web_sg"
