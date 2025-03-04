@@ -4,10 +4,10 @@ data "http" "my_public_ip" {
 }
 
 locals {
-  my_ip = "${data.http.my_public_ip.body}/32" #${chomp(data.http.my_public_ip.body)}/32
+  my_public_ip = "${data.http.my_public_ip.response_body}/32" #${chomp(data.http.my_public_ip.body)}/32
 }
 #Output my_ip
 output "my_ip" {
-  value = local.my_ip
+  value = local.my_public_ip
   
 }
